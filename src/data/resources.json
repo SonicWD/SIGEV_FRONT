@@ -1,0 +1,20 @@
+[
+  {
+    "icon": "Book",
+    "title": "Manual de Usuario",
+    "description": "Guía completa para el uso del sistema SIGEV",
+    "type": "PDF"
+  },
+  {
+    "icon": "Video",
+    "title": "Tutoriales en Video",
+    "description": "Videos explicativos de las principales funcionalidades",
+    "type": "Video"
+  },
+  {
+    "icon": "Download",
+    "title": "Guías Rápidas",
+    "description": "Documentos de referencia rápida para tareas específicas",
+    "type": "PDF"
+  }
+]

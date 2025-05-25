@@ -1,0 +1,18 @@
+[
+    {
+      "icon": "Users",
+      "title": "Registro de Pacientes",
+      "description": "Gestión completa de información demográfica y médica de pacientes"
+    },
+    {
+      "icon": "Package",
+      "title": "Control de Inventario",
+      "description": "Seguimiento en tiempo real de vacunas disponibles y fechas de vencimiento"
+    },
+    {
+      "icon": "FileText",
+      "title": "Historial de Vacunación",
+      "description": "Registro detallado y trazabilidad completa de esquemas de vacunación"
+    }
+  ]
+  

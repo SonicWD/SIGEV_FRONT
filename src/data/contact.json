@@ -1,0 +1,38 @@
+[
+  {
+    "icon": "MapPin",
+    "title": "Dirección",
+    "details": [
+      "Hospital San Antonio de Guatavita",
+      "Calle 5 # 4-56, Guatavita",
+      "Cundinamarca, Colombia"
+    ]
+  },
+  {
+    "icon": "Phone",
+    "title": "Teléfono",
+    "details": [
+      "(601) 123-4567",
+      "(601) 123-4568",
+      "Línea de emergencias: 123"
+    ]
+  },
+  {
+    "icon": "Mail",
+    "title": "Email",
+    "details": [
+      "info@sigev.com",
+      "soporte@sigev.com",
+      "administracion@sigev.com"
+    ]
+  },
+  {
+    "icon": "Clock",
+    "title": "Horarios",
+    "details": [
+      "Lunes a Viernes: 7:00 AM - 6:00 PM",
+      "Sábados: 8:00 AM - 2:00 PM",
+      "Domingos: Emergencias"
+    ]
+  }
+]

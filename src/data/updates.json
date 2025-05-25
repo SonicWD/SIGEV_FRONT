@@ -1,0 +1,21 @@
+[
+    {
+      "date": "15 Ene 2024",
+      "title": "Nueva integración con SIVIGILA",
+      "description": "Reporte automático de eventos adversos al sistema nacional",
+      "type": "feature"
+    },
+    {
+      "date": "10 Ene 2024",
+      "title": "Actualización de esquemas pediátricos",
+      "description": "Nuevos protocolos según lineamientos del Ministerio de Salud",
+      "type": "update"
+    },
+    {
+      "date": "05 Ene 2024",
+      "title": "Mejoras en rendimiento",
+      "description": "Optimización de consultas y tiempos de respuesta",
+      "type": "improvement"
+    }
+  ]
+  

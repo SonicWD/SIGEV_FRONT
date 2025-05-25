@@ -1,0 +1,22 @@
+[
+  {
+    "question": "¿Cómo registro un nuevo paciente en el sistema?",
+    "answer": "Para registrar un nuevo paciente, accede al módulo 'Pacientes' desde el menú principal, haz clic en 'Nuevo Paciente' y completa todos los campos obligatorios del formulario.",
+    "category": "Registro"
+  },
+  {
+    "question": "¿Cómo consulto el historial de vacunación de un paciente?",
+    "answer": "Busca al paciente en el módulo 'Pacientes', selecciona su perfil y haz clic en la pestaña 'Historial de Vacunación' para ver todas las vacunas aplicadas.",
+    "category": "Consultas"
+  },
+  {
+    "question": "¿Qué hago si una vacuna está próxima a vencer?",
+    "answer": "El sistema genera alertas automáticas para vacunas próximas a vencer. Revisa el módulo 'Inventario' y la sección 'Alertas' para gestionar estos casos.",
+    "category": "Inventario"
+  },
+  {
+    "question": "¿Cómo genero reportes de vacunación?",
+    "answer": "Ve al módulo 'Reportes', selecciona el tipo de reporte deseado, define los filtros de fecha y población, y haz clic en 'Generar Reporte'.",
+    "category": "Reportes"
+  }
+]
