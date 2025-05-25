@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react"
-import { Navigate, Route, Routes } from "react-router-dom"
+import { Route, Routes } from "react-router-dom"
 import useAuth from "@/lib/useAuth"
 const Dashboard = lazy(() => import("@/views/private/Dashboard"))
 
