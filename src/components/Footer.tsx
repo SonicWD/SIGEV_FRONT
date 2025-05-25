@@ -48,8 +48,8 @@ export default function Footer() {
               <a href="/nosotros" className="block text-gray-400 hover:text-emerald-400 transition-colors text-sm">
                 Nosotros
               </a>
-              <a href="/normativa" className="block text-gray-400 hover:text-emerald-400 transition-colors text-sm">
-                Normativa
+              <a href="/normatividad" className="block text-gray-400 hover:text-emerald-400 transition-colors text-sm">
+                Normatividad
               </a>
               <a href="/ayuda" className="block text-gray-400 hover:text-emerald-400 transition-colors text-sm">
                 Ayuda

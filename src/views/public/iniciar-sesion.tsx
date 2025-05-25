@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -9,8 +10,10 @@ import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Badge } from "@/components/ui/badge"
 import { Shield, Lock, User, Eye, EyeOff, AlertCircle, CheckCircle, ArrowRight } from "lucide-react"
+import api from "@/lib/api"
 
 export default function IniciarSesion() {
+  const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
   const [formData, setFormData] = useState({
     username: "",
@@ -24,9 +27,32 @@ export default function IniciarSesion() {
     "Sesiones seguras con timeout automático",
     "Auditoría completa de accesos",
   ]
-
   const handleInputChange = (field: string, value: string | boolean) => {
-    setFormData((prev) => ({ ...prev, [field]: value }))
+    setFormData(prev => ({ ...prev, [field]: value }))
+  }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    try {
+      const response = await api.post(`/sigev/v1/users/login/`, {
+        username: formData.username,
+        password: formData.password,
+      })
+
+      const token = response.data.access
+      const refresh = response.data.refresh
+
+      if (token) {
+        localStorage.setItem("accessToken", token)
+        localStorage.setItem("refreshToken", refresh)
+        navigate("/")
+        console.log("Inicio de sesión exitoso, redirigiendo...", localStorage.getItem("accessToken"))
+      } else {
+        alert("No se recibió token")
+      }
+    } catch (error) {
+      alert("Credenciales incorrectas")
+      console.error(error)
+    }
   }
 
   return (
@@ -61,7 +87,7 @@ export default function IniciarSesion() {
                     <p className="text-muted-foreground">Ingresa tus credenciales para continuar</p>
                   </CardHeader>
                   <CardContent className="p-8 pt-0">
-                    <form className="space-y-6">
+                    <form className="space-y-6" onSubmit={handleSubmit}>
                       {/* Username */}
                       <div className="space-y-2">
                         <label className="text-sm font-medium text-foreground">Usuario</label>
