@@ -1,9 +1,23 @@
+import { lazy, Suspense } from "react"
+import { Navigate, Route, Routes } from "react-router-dom"
+import useAuth from "@/lib/useAuth"
+const Dashboard = lazy(() => import("@/views/private/Dashboard"))
+
 export default function PrivateRoutes() {
-    return (
-      <div className="p-8 text-center">
-        <h1 className="text-3xl font-bold">Zona Privada</h1>
-        <p className="mt-4">Esto será protegido más adelante.</p>
-      </div>
-    )
-  }
-  
+  const isAuthenticated = useAuth()
+
+  if (!isAuthenticated) return null
+
+  return (
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <Suspense fallback={<div className="p-4 text-sm">Cargando dashboard...</div>}>
+            <Dashboard />
+          </Suspense>
+        }
+      />
+    </Routes>
+  )
+}
