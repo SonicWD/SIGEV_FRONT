@@ -1,0 +1,36 @@
+{
+  "1": [
+    {
+      "title": "Gestión de Usuarios",
+      "description": "Administrar usuarios del sistema",
+      "icon": "Users",
+      "href": "/dashboard/usuarios",
+      "color": "from-blue-500 to-blue-600"
+    },
+    {
+      "title": "Gestión de Médicos",
+      "description": "Administrar personal médico",
+      "icon": "Stethoscope",
+      "href": "/dashboard/medicos",
+      "color": "from-green-500 to-green-600"
+    }
+  ],
+  "2": [
+    {
+      "title": "Mi Perfil",
+      "description": "Ver y editar información personal",
+      "icon": "User",
+      "href": "/dashboard/perfil",
+      "color": "from-blue-500 to-blue-600"
+    }
+  ],
+  "3": [
+    {
+      "title": "Mi Perfil",
+      "description": "Ver y editar información personal",
+      "icon": "User",
+      "href": "/dashboard/perfil",
+      "color": "from-blue-500 to-blue-600"
+    }
+  ]
+}
