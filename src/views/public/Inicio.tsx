@@ -25,21 +25,23 @@ import rawFeatures from "@/data/features.json"
 import rawUpdates from "@/data/updates.json"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
+import { useNavigate } from "react-router-dom"
 
-const iconMap = { Users, Package, FileText }
+const iconMap = { Users, Package, FileText };
 const features = rawFeatures.map((item) => ({
   ...item,
   icon: iconMap[item.icon as keyof typeof iconMap],
-}))
+}));
 
-const updates = rawUpdates
+const updates = rawUpdates;
 
 export default function Inicio() {
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setIsVisible(true)
-  }, [])
+    setIsVisible(true);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-cyan-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
@@ -49,7 +51,11 @@ export default function Inicio() {
       <section className="py-20 px-4">
         <div className="container mx-auto text-center">
           <div
-            className={`transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+            className={`transition-all duration-1000 ${
+              isVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10"
+            }`}
           >
             <Badge className="mb-6 bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-200 dark:hover:bg-emerald-900 transition-colors border-emerald-200 dark:border-emerald-800 shadow-sm">
               <Heart className="w-4 h-4 mr-2" />
@@ -59,13 +65,15 @@ export default function Inicio() {
               Gestión Inteligente de Vacunación
             </h2>
             <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
-              Bienvenido a SIGEV, la plataforma digital que revoluciona la gestión de esquemas de vacunación en
-              instituciones de salud, garantizando seguridad, eficiencia y trazabilidad completa.
+              Bienvenido a SIGEV, la plataforma digital que revoluciona la
+              gestión de esquemas de vacunación en instituciones de salud,
+              garantizando seguridad, eficiencia y trazabilidad completa.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Button
                 size="lg"
                 className="bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-700 hover:to-cyan-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 px-8 py-3 hover:scale-105"
+                onClick={() => navigate("/dashboard")}
               >
                 <Stethoscope className="mr-2 h-5 w-5" />
                 Explorar Sistema
@@ -74,6 +82,7 @@ export default function Inicio() {
                 size="lg"
                 variant="outline"
                 className="border-emerald-300 dark:border-emerald-600 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950 transition-all duration-300 px-8 py-3 hover:scale-105 hover:shadow-md"
+                onClick={() => navigate("/demo")}
               >
                 <Activity className="mr-2 h-5 w-5" />
                 Ver Demo
@@ -87,9 +96,12 @@ export default function Inicio() {
       <section className="py-20 px-4 bg-muted/30">
         <div className="container mx-auto">
           <div className="text-center mb-16">
-            <h3 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Funcionalidades Principales</h3>
+            <h3 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
+              Funcionalidades Principales
+            </h3>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Herramientas diseñadas para optimizar cada aspecto de la gestión de vacunación
+              Herramientas diseñadas para optimizar cada aspecto de la gestión
+              de vacunación
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
@@ -121,9 +133,12 @@ export default function Inicio() {
       <section className="py-20 px-4">
         <div className="container mx-auto">
           <div className="text-center mb-16">
-            <h3 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Últimas Actualizaciones</h3>
+            <h3 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
+              Últimas Actualizaciones
+            </h3>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Mantente al día con las mejoras y nuevas funcionalidades del sistema
+              Mantente al día con las mejoras y nuevas funcionalidades del
+              sistema
             </p>
           </div>
           <div className="max-w-4xl mx-auto space-y-6">
@@ -140,21 +155,31 @@ export default function Inicio() {
                           variant="secondary"
                           className="bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800 group-hover:bg-emerald-200 dark:group-hover:bg-emerald-900 transition-colors"
                         >
-                          {update.type === "feature" && <TrendingUp className="w-3 h-3 mr-1" />}
-                          {update.type === "update" && <Bell className="w-3 h-3 mr-1" />}
-                          {update.type === "improvement" && <CheckCircle className="w-3 h-3 mr-1" />}
+                          {update.type === "feature" && (
+                            <TrendingUp className="w-3 h-3 mr-1" />
+                          )}
+                          {update.type === "update" && (
+                            <Bell className="w-3 h-3 mr-1" />
+                          )}
+                          {update.type === "improvement" && (
+                            <CheckCircle className="w-3 h-3 mr-1" />
+                          )}
                           {update.type === "feature"
                             ? "Nueva Función"
                             : update.type === "update"
-                              ? "Actualización"
-                              : "Mejora"}
+                            ? "Actualización"
+                            : "Mejora"}
                         </Badge>
-                        <span className="text-sm text-muted-foreground">{update.date}</span>
+                        <span className="text-sm text-muted-foreground">
+                          {update.date}
+                        </span>
                       </div>
                       <h4 className="text-lg font-semibold text-foreground mb-2 group-hover:text-emerald-700 dark:group-hover:text-emerald-300 transition-colors">
                         {update.title}
                       </h4>
-                      <p className="text-muted-foreground">{update.description}</p>
+                      <p className="text-muted-foreground">
+                        {update.description}
+                      </p>
                     </div>
                   </div>
                 </CardContent>
@@ -179,9 +204,10 @@ export default function Inicio() {
                 </h2>
               </div>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                SIGEV está diseñado bajo los más altos estándares de seguridad, privacidad e interoperabilidad,
-                cumpliendo con normativas nacionales e internacionales para garantizar la protección de datos sensibles
-                en el sector salud.
+                SIGEV está diseñado bajo los más altos estándares de seguridad,
+                privacidad e interoperabilidad, cumpliendo con normativas
+                nacionales e internacionales para garantizar la protección de
+                datos sensibles en el sector salud.
               </p>
             </div>
 
@@ -200,27 +226,36 @@ export default function Inicio() {
                     <li className="flex items-start space-x-3">
                       <CheckCircle className="h-5 w-5 text-emerald-600 dark:text-emerald-400 mt-0.5 flex-shrink-0" />
                       <div>
-                        <span className="font-medium text-foreground">Ley 1581 de 2012:</span>
+                        <span className="font-medium text-foreground">
+                          Ley 1581 de 2012:
+                        </span>
                         <span className="text-muted-foreground ml-1">
-                          Protección integral de datos personales con consentimiento informado y derechos ARCO.
+                          Protección integral de datos personales con
+                          consentimiento informado y derechos ARCO.
                         </span>
                       </div>
                     </li>
                     <li className="flex items-start space-x-3">
                       <CheckCircle className="h-5 w-5 text-emerald-600 dark:text-emerald-400 mt-0.5 flex-shrink-0" />
                       <div>
-                        <span className="font-medium text-foreground">Ley 2015 de 2020:</span>
+                        <span className="font-medium text-foreground">
+                          Ley 2015 de 2020:
+                        </span>
                         <span className="text-muted-foreground ml-1">
-                          Historia clínica interoperable para continuidad asistencial y calidad en la atención.
+                          Historia clínica interoperable para continuidad
+                          asistencial y calidad en la atención.
                         </span>
                       </div>
                     </li>
                     <li className="flex items-start space-x-3">
                       <CheckCircle className="h-5 w-5 text-emerald-600 dark:text-emerald-400 mt-0.5 flex-shrink-0" />
                       <div>
-                        <span className="font-medium text-foreground">Resolución 866 de 2021:</span>
+                        <span className="font-medium text-foreground">
+                          Resolución 866 de 2021:
+                        </span>
                         <span className="text-muted-foreground ml-1">
-                          Interoperabilidad semántica y técnica en sistemas de información en salud.
+                          Interoperabilidad semántica y técnica en sistemas de
+                          información en salud.
                         </span>
                       </div>
                     </li>
@@ -241,27 +276,36 @@ export default function Inicio() {
                     <li className="flex items-start space-x-3">
                       <CheckCircle className="h-5 w-5 text-cyan-600 dark:text-cyan-400 mt-0.5 flex-shrink-0" />
                       <div>
-                        <span className="font-medium text-foreground">HL7 FHIR:</span>
+                        <span className="font-medium text-foreground">
+                          HL7 FHIR:
+                        </span>
                         <span className="text-muted-foreground ml-1">
-                          Intercambio de información clínica estructurada y estandarizada globalmente.
+                          Intercambio de información clínica estructurada y
+                          estandarizada globalmente.
                         </span>
                       </div>
                     </li>
                     <li className="flex items-start space-x-3">
                       <CheckCircle className="h-5 w-5 text-cyan-600 dark:text-cyan-400 mt-0.5 flex-shrink-0" />
                       <div>
-                        <span className="font-medium text-foreground">ISO/IEC 27701:2019:</span>
+                        <span className="font-medium text-foreground">
+                          ISO/IEC 27701:2019:
+                        </span>
                         <span className="text-muted-foreground ml-1">
-                          Sistema de gestión de privacidad de la información con controles específicos.
+                          Sistema de gestión de privacidad de la información con
+                          controles específicos.
                         </span>
                       </div>
                     </li>
                     <li className="flex items-start space-x-3">
                       <CheckCircle className="h-5 w-5 text-cyan-600 dark:text-cyan-400 mt-0.5 flex-shrink-0" />
                       <div>
-                        <span className="font-medium text-foreground">Prácticas OWASP:</span>
+                        <span className="font-medium text-foreground">
+                          Prácticas OWASP:
+                        </span>
                         <span className="text-muted-foreground ml-1">
-                          Seguridad en aplicaciones web con prevención de vulnerabilidades críticas.
+                          Seguridad en aplicaciones web con prevención de
+                          vulnerabilidades críticas.
                         </span>
                       </div>
                     </li>
@@ -282,27 +326,36 @@ export default function Inicio() {
                     <li className="flex items-start space-x-3">
                       <CheckCircle className="h-5 w-5 text-indigo-600 dark:text-indigo-400 mt-0.5 flex-shrink-0" />
                       <div>
-                        <span className="font-medium text-foreground">Metodología UWE Adaptada:</span>
+                        <span className="font-medium text-foreground">
+                          Metodología UWE Adaptada:
+                        </span>
                         <span className="text-muted-foreground ml-1">
-                          Modelado de casos de uso reales con enfoque en experiencia de usuario centrada en salud.
+                          Modelado de casos de uso reales con enfoque en
+                          experiencia de usuario centrada en salud.
                         </span>
                       </div>
                     </li>
                     <li className="flex items-start space-x-3">
                       <CheckCircle className="h-5 w-5 text-indigo-600 dark:text-indigo-400 mt-0.5 flex-shrink-0" />
                       <div>
-                        <span className="font-medium text-foreground">Integración CITISALUD TOPRA:</span>
+                        <span className="font-medium text-foreground">
+                          Integración CITISALUD TOPRA:
+                        </span>
                         <span className="text-muted-foreground ml-1">
-                          Conectividad simulada con sistemas nacionales de información en salud.
+                          Conectividad simulada con sistemas nacionales de
+                          información en salud.
                         </span>
                       </div>
                     </li>
                     <li className="flex items-start space-x-3">
                       <CheckCircle className="h-5 w-5 text-indigo-600 dark:text-indigo-400 mt-0.5 flex-shrink-0" />
                       <div>
-                        <span className="font-medium text-foreground">Compatibilidad PAIWEB:</span>
+                        <span className="font-medium text-foreground">
+                          Compatibilidad PAIWEB:
+                        </span>
                         <span className="text-muted-foreground ml-1">
-                          Integración con el Programa Ampliado de Inmunizaciones del Ministerio de Salud.
+                          Integración con el Programa Ampliado de Inmunizaciones
+                          del Ministerio de Salud.
                         </span>
                       </div>
                     </li>
@@ -323,27 +376,36 @@ export default function Inicio() {
                     <li className="flex items-start space-x-3">
                       <CheckCircle className="h-5 w-5 text-purple-600 dark:text-purple-400 mt-0.5 flex-shrink-0" />
                       <div>
-                        <span className="font-medium text-foreground">Seguridad por Diseño:</span>
+                        <span className="font-medium text-foreground">
+                          Seguridad por Diseño:
+                        </span>
                         <span className="text-muted-foreground ml-1">
-                          Autenticación por roles, cifrado AES-256, control de acceso granular y auditoría completa.
+                          Autenticación por roles, cifrado AES-256, control de
+                          acceso granular y auditoría completa.
                         </span>
                       </div>
                     </li>
                     <li className="flex items-start space-x-3">
                       <CheckCircle className="h-5 w-5 text-purple-600 dark:text-purple-400 mt-0.5 flex-shrink-0" />
                       <div>
-                        <span className="font-medium text-foreground">Privacidad por Diseño:</span>
+                        <span className="font-medium text-foreground">
+                          Privacidad por Diseño:
+                        </span>
                         <span className="text-muted-foreground ml-1">
-                          Consentimiento informado, minimización de datos y pseudonimización automática.
+                          Consentimiento informado, minimización de datos y
+                          pseudonimización automática.
                         </span>
                       </div>
                     </li>
                     <li className="flex items-start space-x-3">
                       <CheckCircle className="h-5 w-5 text-purple-600 dark:text-purple-400 mt-0.5 flex-shrink-0" />
                       <div>
-                        <span className="font-medium text-foreground">Accesibilidad WAI:</span>
+                        <span className="font-medium text-foreground">
+                          Accesibilidad WAI:
+                        </span>
                         <span className="text-muted-foreground ml-1">
-                          Diseño inclusivo siguiendo WCAG 2.1 AA para garantizar acceso universal al sistema.
+                          Diseño inclusivo siguiendo WCAG 2.1 AA para garantizar
+                          acceso universal al sistema.
                         </span>
                       </div>
                     </li>
@@ -355,15 +417,20 @@ export default function Inicio() {
             {/* Footer CTA */}
             <div className="mt-16 text-center">
               <div className="bg-gradient-to-r from-emerald-600 to-cyan-600 dark:from-emerald-700 dark:to-cyan-700 rounded-2xl p-8 shadow-xl">
-                <h3 className="text-2xl font-bold text-white mb-4">Tecnología Confiable para la Salud Pública</h3>
+                <h3 className="text-2xl font-bold text-white mb-4">
+                  Tecnología Confiable para la Salud Pública
+                </h3>
                 <p className="text-emerald-100 mb-6 max-w-2xl mx-auto">
-                  Nuestro compromiso con la excelencia técnica y el cumplimiento normativo garantiza que SIGEV sea una
-                  herramienta segura, confiable y eficiente para la gestión de esquemas de vacunación en Colombia.
+                  Nuestro compromiso con la excelencia técnica y el cumplimiento
+                  normativo garantiza que SIGEV sea una herramienta segura,
+                  confiable y eficiente para la gestión de esquemas de
+                  vacunación en Colombia.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button
                     size="lg"
                     className="bg-white text-emerald-600 hover:bg-gray-50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                    onClick={() => navigate("/documentacion")}
                   >
                     <FileText className="mr-2 h-5 w-5" />
                     Documentación Técnica
@@ -372,6 +439,7 @@ export default function Inicio() {
                     size="lg"
                     variant="outline"
                     className="border-white text-white hover:bg-white hover:text-emerald-600 transition-all duration-300 hover:scale-105"
+                    onClick={() => navigate("/certificaciones")}
                   >
                     <Shield className="mr-2 h-5 w-5" />
                     Certificaciones de Seguridad
@@ -395,11 +463,13 @@ export default function Inicio() {
               ¿Listo para transformar la gestión de vacunación?
             </h3>
             <p className="text-xl text-emerald-100 mb-8 leading-relaxed">
-              Únete a la revolución digital en salud pública y mejora la eficiencia de tu institución con SIGEV.
+              Únete a la revolución digital en salud pública y mejora la
+              eficiencia de tu institución con SIGEV.
             </p>
             <Button
               size="lg"
               className="bg-white text-emerald-600 hover:bg-gray-50 shadow-lg hover:shadow-xl transition-all duration-300 px-8 py-3 hover:scale-105 font-medium"
+              onClick={() => navigate("/contacto")}
             >
               <Calendar className="mr-2 h-5 w-5" />
               Solicitar Demostración
@@ -410,5 +480,5 @@ export default function Inicio() {
 
       <Footer />
     </div>
-  )
+  );
 }

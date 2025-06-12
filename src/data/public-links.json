@@ -1,0 +1,27 @@
+[
+  {
+    "label": "Explorar Sistema",
+    "to": "/dashboard",
+    "type": "internal"
+  },
+  {
+    "label": "Ver Demo",
+    "to": "/demo",
+    "type": "internal"
+  },
+  {
+    "label": "Documentación Técnica",
+    "to": "/normatividad",
+    "type": "internal"
+  },
+  {
+    "label": "Certificaciones de Seguridad",
+    "to": "/certificaciones",
+    "type": "internal"
+  },
+  {
+    "label": "Solicitar Demostración",
+    "to": "/contacto",
+    "type": "internal"
+  }
+] 

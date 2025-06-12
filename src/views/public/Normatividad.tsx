@@ -14,47 +14,61 @@ export default function Normativa() {
         "Lineamientos técnicos y operativos de la Ruta Integral de Atención para la Promoción y Mantenimiento de la Salud",
       type: "Nacional",
       date: "2018",
+      pdf: "https://www.minsalud.gov.co/Normatividad_Nuevo/Resolución%203280%20de%202018.pdf",
+      web: "https://www.minsalud.gov.co/Normatividad_Nuevo/Resolución-3280-de-2018.aspx",
     },
     {
       title: "Circular 007 de 2023",
       entity: "Ministerio de Salud",
-      description: "Orientaciones para el fortalecimiento de la vacunación en el territorio nacional",
+      description:
+        "Orientaciones para el fortalecimiento de la vacunación en el territorio nacional",
       type: "Nacional",
       date: "2023",
+      pdf: "https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/DE/DIJ/circular-externa-007-de-2023.pdf",
+      web: "https://www.minsalud.gov.co/Normatividad/Paginas/circular-externa-007-de-2023.aspx",
     },
     {
       title: "Decreto 780 de 2016",
       entity: "Presidencia de la República",
-      description: "Decreto Único Reglamentario del Sector Salud y Protección Social",
+      description:
+        "Decreto Único Reglamentario del Sector Salud y Protección Social",
       type: "Nacional",
       date: "2016",
+      pdf: "https://dapre.presidencia.gov.co/normativa/normativa/DECRETO%20780%20DEL%2006%20DE%20MAYO%20DE%202016.pdf",
+      web: "https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=74222",
     },
     {
       title: "Resolución 518 de 2015",
       entity: "Ministerio de Salud",
-      description: "Directriz de Dosificación, Programación y Aplicación de Vacunas",
+      description:
+        "Directriz de Dosificación, Programación y Aplicación de Vacunas",
       type: "Nacional",
       date: "2015",
+      pdf: "https://www.minsalud.gov.co/Normatividad_Nuevo/Resolución%20518%20de%202015.pdf",
+      web: "https://www.minsalud.gov.co/Normatividad_Nuevo/Resolución-518-de-2015.aspx",
     },
-  ]
+  ];
 
   const guidelines = [
     {
       icon: BookOpen,
       title: "Protocolos de Vacunación",
-      description: "Procedimientos estandarizados para la aplicación segura de vacunas",
+      description:
+        "Procedimientos estandarizados para la aplicación segura de vacunas",
     },
     {
       icon: Scale,
       title: "Marco Legal",
-      description: "Cumplimiento de normativas nacionales e internacionales de salud",
+      description:
+        "Cumplimiento de normativas nacionales e internacionales de salud",
     },
     {
       icon: AlertCircle,
       title: "Eventos Adversos",
-      description: "Protocolos para el manejo y reporte de eventos adversos post-vacunación",
+      description:
+        "Protocolos para el manejo y reporte de eventos adversos post-vacunación",
     },
-  ]
+  ];
 
   return (
     <>
@@ -71,8 +85,10 @@ export default function Normativa() {
               Normativa
             </h1>
             <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
-              SIGEV cumple con todas las regulaciones y lineamientos establecidos por las autoridades sanitarias
-              colombianas para garantizar la seguridad y eficacia en la gestión de esquemas de vacunación.
+              SIGEV cumple con todas las regulaciones y lineamientos
+              establecidos por las autoridades sanitarias colombianas para
+              garantizar la seguridad y eficacia en la gestión de esquemas de
+              vacunación.
             </p>
           </div>
         </section>
@@ -81,7 +97,9 @@ export default function Normativa() {
         <section className="py-20 px-4 bg-muted/30">
           <div className="container mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Lineamientos Principales</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
+                Lineamientos Principales
+              </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Principios fundamentales que rigen nuestro sistema
               </p>
@@ -96,7 +114,9 @@ export default function Normativa() {
                     <div className="mx-auto mb-4 p-4 bg-gradient-to-br from-emerald-100 to-cyan-100 dark:from-emerald-950 dark:to-cyan-950 rounded-xl group-hover:from-emerald-200 group-hover:to-cyan-200 dark:group-hover:from-emerald-900 dark:group-hover:to-cyan-900 transition-all duration-300 group-hover:scale-110">
                       <guideline.icon className="h-8 w-8 text-emerald-600 dark:text-emerald-400" />
                     </div>
-                    <CardTitle className="text-xl text-foreground">{guideline.title}</CardTitle>
+                    <CardTitle className="text-xl text-foreground">
+                      {guideline.title}
+                    </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <CardDescription className="text-center text-muted-foreground leading-relaxed">
@@ -113,7 +133,9 @@ export default function Normativa() {
         <section className="py-20 px-4">
           <div className="container mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Normativas Aplicables</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
+                Normativas Aplicables
+              </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Documentos oficiales que respaldan nuestras operaciones
               </p>
@@ -135,10 +157,16 @@ export default function Normativa() {
                             <FileText className="w-3 h-3 mr-1" />
                             {regulation.type}
                           </Badge>
-                          <span className="text-sm text-muted-foreground">{regulation.date}</span>
+                          <span className="text-sm text-muted-foreground">
+                            {regulation.date}
+                          </span>
                         </div>
-                        <h3 className="text-lg font-semibold text-foreground mb-2">{regulation.title}</h3>
-                        <p className="text-muted-foreground mb-2">{regulation.description}</p>
+                        <h3 className="text-lg font-semibold text-foreground mb-2">
+                          {regulation.title}
+                        </h3>
+                        <p className="text-muted-foreground mb-2">
+                          {regulation.description}
+                        </p>
                         <p className="text-sm text-emerald-600 dark:text-emerald-400 font-medium">
                           {regulation.entity}
                         </p>
@@ -148,17 +176,31 @@ export default function Normativa() {
                           size="sm"
                           variant="outline"
                           className="border-emerald-300 text-emerald-700 hover:bg-emerald-50 dark:hover:bg-emerald-950"
+                          asChild
                         >
-                          <Download className="w-4 h-4 mr-1" />
-                          PDF
+                          <a
+                            href={regulation.pdf}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <Download className="w-4 h-4 mr-1" />
+                            PDF
+                          </a>
                         </Button>
                         <Button
                           size="sm"
                           variant="outline"
                           className="border-cyan-300 text-cyan-700 hover:bg-cyan-50 dark:hover:bg-cyan-950"
+                          asChild
                         >
-                          <ExternalLink className="w-4 h-4 mr-1" />
-                          Ver
+                          <a
+                            href={regulation.web}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <ExternalLink className="w-4 h-4 mr-1" />
+                            Ver
+                          </a>
                         </Button>
                       </div>
                     </div>
@@ -175,11 +217,14 @@ export default function Normativa() {
             <div className="max-w-3xl mx-auto">
               <div className="flex items-center justify-center mb-6">
                 <Shield className="h-12 w-12 text-white mr-4" />
-                <h3 className="text-3xl md:text-4xl font-bold text-white">Cumplimiento Garantizado</h3>
+                <h3 className="text-3xl md:text-4xl font-bold text-white">
+                  Cumplimiento Garantizado
+                </h3>
               </div>
               <p className="text-xl text-emerald-100 mb-8 leading-relaxed">
-                SIGEV está diseñado para cumplir automáticamente con todas las normativas vigentes, asegurando que tu
-                institución mantenga los más altos estándares de calidad y legalidad.
+                SIGEV está diseñado para cumplir automáticamente con todas las
+                normativas vigentes, asegurando que tu institución mantenga los
+                más altos estándares de calidad y legalidad.
               </p>
               <Button
                 size="lg"
@@ -194,5 +239,5 @@ export default function Normativa() {
       </div>
       <Footer />
     </>
-  )
+  );
 }
