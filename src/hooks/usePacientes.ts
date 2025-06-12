@@ -23,85 +23,131 @@ export const usePacientes = () => {
   const [error, setError] = useState<string | null>(null)
 
   const fetchPacientes = useCallback(async () => {
-    setLoading(true)
-    setError(null)
+    setLoading(true);
+    setError(null);
 
     try {
-      const response = await api.get("/pacientes/")
-      setPacientes(response.data)
-    } catch (err: any) {
-      setError(err.response?.data?.message || "Error al cargar los pacientes")
-      console.error("Error fetching pacientes:", err)
+      const response = await api.get("/pacientes/");
+      console.log("Respuesta de la API de pacientes:", response.data);
+      setPacientes(Array.isArray(response.data.data) ? response.data.data : []);
+    } catch (err: unknown) {
+      if (typeof err === "object" && err !== null && "response" in err) {
+        const errorObj = err as { response?: { data?: { message?: string } } };
+        setError(
+          errorObj.response?.data?.message || "Error al cargar los pacientes"
+        );
+      } else {
+        setError("Error al cargar los pacientes");
+      }
+      console.error("Error fetching pacientes:", err);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }, [])
+  }, []);
 
   const fetchPaciente = useCallback(async (id: number) => {
-    setLoading(true)
-    setError(null)
+    setLoading(true);
+    setError(null);
 
     try {
-      const response = await api.get(`/pacientes/${id}/`)
-      return response.data
-    } catch (err: any) {
-      setError(err.response?.data?.message || "Error al cargar el paciente")
-      console.error("Error fetching paciente:", err)
-      return null
+      const response = await api.get(`/pacientes/${id}/`);
+      return response.data;
+    } catch (err: unknown) {
+      if (typeof err === "object" && err !== null && "response" in err) {
+        const errorObj = err as { response?: { data?: { message?: string } } };
+        setError(
+          errorObj.response?.data?.message || "Error al cargar el paciente"
+        );
+      } else {
+        setError("Error al cargar el paciente");
+      }
+      console.error("Error fetching paciente:", err);
+      return null;
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }, [])
+  }, []);
 
-  const createPaciente = useCallback(async (pacienteData: Omit<Paciente, "id">) => {
-    setLoading(true)
-    setError(null)
+  const createPaciente = useCallback(
+    async (pacienteData: Omit<Paciente, "id">) => {
+      setLoading(true);
+      setError(null);
 
-    try {
-      const response = await api.post("/pacientes/", pacienteData)
-      setPacientes((prev) => [...prev, response.data])
-      return response.data
-    } catch (err: any) {
-      setError(err.response?.data?.message || "Error al crear el paciente")
-      console.error("Error creating paciente:", err)
-      throw err
-    } finally {
-      setLoading(false)
-    }
-  }, [])
+      try {
+        const response = await api.post("/pacientes/", pacienteData);
+        setPacientes((prev) => [...prev, response.data]);
+        return response.data;
+      } catch (err: unknown) {
+        if (typeof err === "object" && err !== null && "response" in err) {
+          const errorObj = err as {
+            response?: { data?: { message?: string } };
+          };
+          setError(
+            errorObj.response?.data?.message || "Error al crear el paciente"
+          );
+        } else {
+          setError("Error al crear el paciente");
+        }
+        console.error("Error creating paciente:", err);
+        throw err;
+      } finally {
+        setLoading(false);
+      }
+    },
+    []
+  );
 
   const updatePaciente = useCallback(async (pacienteData: Paciente) => {
-    setLoading(true)
-    setError(null)
+    setLoading(true);
+    setError(null);
 
     try {
-      const response = await api.put("/pacientes/admin/actualizar/", pacienteData)
-      setPacientes((prev) => prev.map((p) => (p.id === pacienteData.id ? response.data : p)))
-      return response.data
-    } catch (err: any) {
-      setError(err.response?.data?.message || "Error al actualizar el paciente")
-      console.error("Error updating paciente:", err)
-      throw err
+      const response = await api.put(
+        "/pacientes/admin/actualizar/",
+        pacienteData
+      );
+      setPacientes((prev) =>
+        prev.map((p) => (p.id === pacienteData.id ? response.data : p))
+      );
+      return response.data;
+    } catch (err: unknown) {
+      if (typeof err === "object" && err !== null && "response" in err) {
+        const errorObj = err as { response?: { data?: { message?: string } } };
+        setError(
+          errorObj.response?.data?.message || "Error al actualizar el paciente"
+        );
+      } else {
+        setError("Error al actualizar el paciente");
+      }
+      console.error("Error updating paciente:", err);
+      throw err;
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }, [])
+  }, []);
 
   const deletePaciente = useCallback(async (id: number) => {
-    setLoading(true)
-    setError(null)
+    setLoading(true);
+    setError(null);
 
     try {
-      await api.delete(`/pacientes/admin/${id}/eliminar/`)
-      setPacientes((prev) => prev.filter((p) => p.id !== id))
-    } catch (err: any) {
-      setError(err.response?.data?.message || "Error al eliminar el paciente")
-      console.error("Error deleting paciente:", err)
-      throw err
+      await api.delete(`/pacientes/admin/${id}/eliminar/`);
+      setPacientes((prev) => prev.filter((p) => p.id !== id));
+    } catch (err: unknown) {
+      if (typeof err === "object" && err !== null && "response" in err) {
+        const errorObj = err as { response?: { data?: { message?: string } } };
+        setError(
+          errorObj.response?.data?.message || "Error al eliminar el paciente"
+        );
+      } else {
+        setError("Error al eliminar el paciente");
+      }
+      console.error("Error deleting paciente:", err);
+      throw err;
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }, [])
+  }, []);
 
   const refreshPacientes = useCallback(() => {
     fetchPacientes()

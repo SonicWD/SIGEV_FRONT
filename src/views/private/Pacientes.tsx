@@ -26,114 +26,125 @@ import {
   Eye,
   Edit,
   Trash2,
-  UserPlus,
   Filter,
   Download,
   RefreshCw,
   AlertCircle,
   CheckCircle,
-} from "lucide-react"
-import { usePacientes } from "@/hooks/usePacientes"
-import { ModalPaciente } from "@/components/dashboard/ModalPaciente"
-import { DetallePaciente } from "@/components/dashboard/DetallePaciente"
+} from "lucide-react";
+import { usePacientes } from "@/hooks/usePacientes";
+import type { Paciente } from "@/hooks/usePacientes";
+import { ModalPaciente } from "@/components/dashboard/ModalPaciente";
+import { DetallePaciente } from "@/components/dashboard/DetallePaciente";
 
 interface Usuario {
   rol: {
-    id: number
-    nombre: string
-  }
+    id: number;
+    nombre: string;
+  };
 }
 
 export default function Pacientes() {
-  const navigate = useNavigate()
-  const [usuario, setUsuario] = useState<Usuario | null>(null)
-  const [searchTerm, setSearchTerm] = useState("")
-  const [selectedPaciente, setSelectedPaciente] = useState<any>(null)
-  const [showModal, setShowModal] = useState(false)
-  const [showDetail, setShowDetail] = useState(false)
-  const [showDeleteDialog, setShowDeleteDialog] = useState(false)
-  const [pacienteToDelete, setPacienteToDelete] = useState<any>(null)
-  const [modalMode, setModalMode] = useState<"create" | "edit">("create")
+  const navigate = useNavigate();
+  const [usuario, setUsuario] = useState<Usuario | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedPaciente, setSelectedPaciente] = useState<Paciente | null>(
+    null
+  );
+  const [showModal, setShowModal] = useState(false);
+  const [showDetail, setShowDetail] = useState(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [pacienteToDelete, setPacienteToDelete] = useState<Paciente | null>(
+    null
+  );
+  const [modalMode, setModalMode] = useState<"create" | "edit">("create");
 
-  const { pacientes, loading, error, fetchPacientes, deletePaciente, refreshPacientes } = usePacientes()
+  const {
+    pacientes,
+    loading,
+    error,
+    fetchPacientes,
+    deletePaciente,
+    refreshPacientes,
+  } = usePacientes();
 
-useEffect(() => {
-  const accessToken = localStorage.getItem("access")
-  const usuarioData = localStorage.getItem("user")
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    const usuarioData = localStorage.getItem("user");
 
-  if (!accessToken || !usuarioData) {
-    navigate("/iniciar-sesion")
-    return
-  }
-
-  try {
-    const parsedUsuario = JSON.parse(usuarioData)
-    if (parsedUsuario.rol.id !== 1 && parsedUsuario.rol.id !== 3) {
-      navigate("/dashboard")
-      return
+    if (!accessToken || !usuarioData) {
+      navigate("/iniciar-sesion");
+      return;
     }
-    setUsuario(parsedUsuario)
-  } catch (error) {
-    console.error("Error parsing user data:", error)
-    navigate("/iniciar-sesion")
-  }
-}, [navigate])
+
+    try {
+      const parsedUsuario = JSON.parse(usuarioData);
+      if (parsedUsuario.rol.id !== 1 && parsedUsuario.rol.id !== 3) {
+        navigate("/dashboard");
+        return;
+      }
+      setUsuario(parsedUsuario);
+    } catch (error) {
+      console.error("Error parsing user data:", error);
+      navigate("/iniciar-sesion");
+    }
+  }, [navigate]);
 
   useEffect(() => {
     if (usuario) {
-      fetchPacientes()
+      fetchPacientes();
     }
-  }, [usuario, fetchPacientes])
+  }, [usuario, fetchPacientes]);
 
-  const filteredPacientes = pacientes.filter(
-    (paciente) =>
-      paciente.nombres.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      paciente.apellidos.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      paciente.documento.includes(searchTerm) ||
-      paciente.correo.toLowerCase().includes(searchTerm.toLowerCase()),
-  )
+  const filteredPacientes = Array.isArray(pacientes)
+    ? pacientes.filter(
+        (paciente) =>
+          paciente.nombres.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          paciente.apellidos.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          paciente.documento.includes(searchTerm) ||
+          paciente.correo.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : [];
 
-  const handleAddPaciente = () => {
-    setSelectedPaciente(null)
-    setModalMode("create")
-    setShowModal(true)
-  }
+  const handleEditPaciente = (paciente: Paciente) => {
+    setSelectedPaciente(paciente);
+    setModalMode("edit");
+    setShowModal(true);
+  };
 
-  const handleEditPaciente = (paciente: any) => {
-    setSelectedPaciente(paciente)
-    setModalMode("edit")
-    setShowModal(true)
-  }
+  const handleViewPaciente = (paciente: Paciente) => {
+    setSelectedPaciente(paciente);
+    setShowDetail(true);
+  };
 
-  const handleViewPaciente = (paciente: any) => {
-    setSelectedPaciente(paciente)
-    setShowDetail(true)
-  }
-
-  const handleDeleteClick = (paciente: any) => {
-    setPacienteToDelete(paciente)
-    setShowDeleteDialog(true)
-  }
+  const handleDeleteClick = (paciente: Paciente) => {
+    setPacienteToDelete(paciente);
+    setShowDeleteDialog(true);
+  };
 
   const handleConfirmDelete = async () => {
     if (pacienteToDelete) {
-      await deletePaciente(pacienteToDelete.id)
-      setShowDeleteDialog(false)
-      setPacienteToDelete(null)
+      await deletePaciente(pacienteToDelete.id);
+      setShowDeleteDialog(false);
+      setPacienteToDelete(null);
     }
-  }
+  };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("es-CO")
-  }
+    return new Date(dateString).toLocaleDateString("es-CO");
+  };
 
   const getGenderBadge = (genero: string) => {
     return genero === "M" ? (
-      <Badge className="bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300">Masculino</Badge>
+      <Badge className="bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300">
+        Masculino
+      </Badge>
     ) : (
-      <Badge className="bg-pink-100 text-pink-700 dark:bg-pink-950 dark:text-pink-300">Femenino</Badge>
-    )
-  }
+      <Badge className="bg-pink-100 text-pink-700 dark:bg-pink-950 dark:text-pink-300">
+        Femenino
+      </Badge>
+    );
+  };
 
   if (!usuario) {
     return (
@@ -143,7 +154,7 @@ useEffect(() => {
           <p className="text-muted-foreground">Verificando permisos...</p>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -157,8 +168,12 @@ useEffect(() => {
                 <Users className="h-8 w-8 text-white" />
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-foreground">Gestión de Pacientes</h1>
-                <p className="text-muted-foreground">Administra la información de los pacientes registrados</p>
+                <h1 className="text-3xl font-bold text-foreground">
+                  Gestión de Pacientes
+                </h1>
+                <p className="text-muted-foreground">
+                  Administra la información de los pacientes registrados
+                </p>
               </div>
             </div>
 
@@ -169,16 +184,10 @@ useEffect(() => {
                 disabled={loading}
                 className="border-emerald-300 text-emerald-700 hover:bg-emerald-50 dark:hover:bg-emerald-950"
               >
-                <RefreshCw className={`h-4 w-4 mr-2 ${loading ? "animate-spin" : ""}`} />
+                <RefreshCw
+                  className={`h-4 w-4 mr-2 ${loading ? "animate-spin" : ""}`}
+                />
                 Actualizar
-              </Button>
-
-              <Button
-                onClick={handleAddPaciente}
-                className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white shadow-lg hover:shadow-xl transition-all duration-300"
-              >
-                <UserPlus className="h-4 w-4 mr-2" />
-                Agregar Paciente
               </Button>
             </div>
           </div>
@@ -191,7 +200,9 @@ useEffect(() => {
         {error && (
           <Alert className="mb-6 border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-950">
             <AlertCircle className="h-4 w-4 text-red-600 dark:text-red-400" />
-            <AlertDescription className="text-red-700 dark:text-red-300">{error}</AlertDescription>
+            <AlertDescription className="text-red-700 dark:text-red-300">
+              {error}
+            </AlertDescription>
           </Alert>
         )}
 
@@ -250,7 +261,9 @@ useEffect(() => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-green-100">Pacientes Activos</p>
-                  <p className="text-3xl font-bold">{pacientes.filter((p) => p.activo).length}</p>
+                  <p className="text-3xl font-bold">
+                    {pacientes.filter((p) => p.activo).length}
+                  </p>
                 </div>
                 <CheckCircle className="h-8 w-8 text-green-200" />
               </div>
@@ -262,7 +275,9 @@ useEffect(() => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-purple-100">Resultados</p>
-                  <p className="text-3xl font-bold">{filteredPacientes.length}</p>
+                  <p className="text-3xl font-bold">
+                    {filteredPacientes.length}
+                  </p>
                 </div>
                 <Search className="h-8 w-8 text-purple-200" />
               </div>
@@ -273,9 +288,12 @@ useEffect(() => {
         {/* Patients Table */}
         <Card className="border-0 bg-card/80 backdrop-blur-sm shadow-lg">
           <CardHeader>
-            <CardTitle className="text-xl text-foreground">Lista de Pacientes</CardTitle>
+            <CardTitle className="text-xl text-foreground">
+              Lista de Pacientes
+            </CardTitle>
             <CardDescription>
-              {filteredPacientes.length} paciente{filteredPacientes.length !== 1 ? "s" : ""} encontrado
+              {filteredPacientes.length} paciente
+              {filteredPacientes.length !== 1 ? "s" : ""} encontrado
               {filteredPacientes.length !== 1 ? "s" : ""}
             </CardDescription>
           </CardHeader>
@@ -290,21 +308,15 @@ useEffect(() => {
             ) : filteredPacientes.length === 0 ? (
               <div className="text-center py-12">
                 <Users className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-foreground mb-2">No hay pacientes</h3>
+                <h3 className="text-lg font-semibold text-foreground mb-2">
+                  No hay pacientes
+                </h3>
                 <p className="text-muted-foreground mb-4">
                   {searchTerm
                     ? "No se encontraron pacientes con los criterios de búsqueda."
                     : "Aún no hay pacientes registrados en el sistema."}
                 </p>
-                {!searchTerm && (
-                  <Button
-                    onClick={handleAddPaciente}
-                    className="bg-gradient-to-r from-purple-600 to-purple-700 text-white"
-                  >
-                    <UserPlus className="h-4 w-4 mr-2" />
-                    Agregar Primer Paciente
-                  </Button>
-                )}
+                {!searchTerm && <></>}
               </div>
             ) : (
               <div className="overflow-x-auto">
@@ -313,12 +325,24 @@ useEffect(() => {
                     <TableRow>
                       <TableHead>Nombres</TableHead>
                       <TableHead>Apellidos</TableHead>
-                      <TableHead className="hidden md:table-cell">Documento</TableHead>
-                      <TableHead className="hidden lg:table-cell">Fecha Nac.</TableHead>
-                      <TableHead className="hidden sm:table-cell">Género</TableHead>
-                      <TableHead className="hidden xl:table-cell">Teléfono</TableHead>
-                      <TableHead className="hidden lg:table-cell">Correo</TableHead>
-                      <TableHead className="hidden sm:table-cell">Estado</TableHead>
+                      <TableHead className="hidden md:table-cell">
+                        Documento
+                      </TableHead>
+                      <TableHead className="hidden lg:table-cell">
+                        Fecha Nac.
+                      </TableHead>
+                      <TableHead className="hidden sm:table-cell">
+                        Género
+                      </TableHead>
+                      <TableHead className="hidden xl:table-cell">
+                        Teléfono
+                      </TableHead>
+                      <TableHead className="hidden lg:table-cell">
+                        Correo
+                      </TableHead>
+                      <TableHead className="hidden sm:table-cell">
+                        Estado
+                      </TableHead>
                       <TableHead className="text-right">Acciones</TableHead>
                     </TableRow>
                   </TableHeader>
@@ -329,19 +353,27 @@ useEffect(() => {
                         className="hover:bg-muted/50 transition-colors animate-fadeIn"
                         style={{ animationDelay: `${index * 50}ms` }}
                       >
-                        <TableCell className="font-medium">{paciente.nombres}</TableCell>
+                        <TableCell className="font-medium">
+                          {paciente.nombres}
+                        </TableCell>
                         <TableCell>{paciente.apellidos}</TableCell>
                         <TableCell className="hidden md:table-cell">
                           <div className="flex flex-col">
-                            <span className="text-xs text-muted-foreground">{paciente.tipo_documento}</span>
+                            <span className="text-xs text-muted-foreground">
+                              {paciente.tipo_documento}
+                            </span>
                             <span>{paciente.documento}</span>
                           </div>
                         </TableCell>
                         <TableCell className="hidden lg:table-cell">
                           {formatDate(paciente.fecha_de_nacimiento)}
                         </TableCell>
-                        <TableCell className="hidden sm:table-cell">{getGenderBadge(paciente.genero)}</TableCell>
-                        <TableCell className="hidden xl:table-cell">{paciente.telefono}</TableCell>
+                        <TableCell className="hidden sm:table-cell">
+                          {getGenderBadge(paciente.genero)}
+                        </TableCell>
+                        <TableCell className="hidden xl:table-cell">
+                          {paciente.telefono}
+                        </TableCell>
                         <TableCell className="hidden lg:table-cell">
                           <span className="text-sm">{paciente.correo}</span>
                         </TableCell>
@@ -364,11 +396,15 @@ useEffect(() => {
                               </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
-                              <DropdownMenuItem onClick={() => handleViewPaciente(paciente)}>
+                              <DropdownMenuItem
+                                onClick={() => handleViewPaciente(paciente)}
+                              >
                                 <Eye className="h-4 w-4 mr-2" />
                                 Ver Detalle
                               </DropdownMenuItem>
-                              <DropdownMenuItem onClick={() => handleEditPaciente(paciente)}>
+                              <DropdownMenuItem
+                                onClick={() => handleEditPaciente(paciente)}
+                              >
                                 <Edit className="h-4 w-4 mr-2" />
                                 Editar
                               </DropdownMenuItem>
@@ -401,8 +437,8 @@ useEffect(() => {
         paciente={selectedPaciente}
         mode={modalMode}
         onSuccess={() => {
-          setShowModal(false)
-          refreshPacientes()
+          setShowModal(false);
+          refreshPacientes();
         }}
       />
 
@@ -412,8 +448,8 @@ useEffect(() => {
         onOpenChange={setShowDetail}
         paciente={selectedPaciente}
         onEdit={(paciente) => {
-          setShowDetail(false)
-          handleEditPaciente(paciente)
+          setShowDetail(false);
+          handleEditPaciente(paciente);
         }}
       />
 
@@ -423,7 +459,8 @@ useEffect(() => {
           <AlertDialogHeader>
             <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
             <AlertDialogDescription>
-              Esta acción no se puede deshacer. Se eliminará permanentemente el paciente{" "}
+              Esta acción no se puede deshacer. Se eliminará permanentemente el
+              paciente{" "}
               <strong>
                 {pacienteToDelete?.nombres} {pacienteToDelete?.apellidos}
               </strong>{" "}
@@ -432,12 +469,15 @@ useEffect(() => {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction onClick={handleConfirmDelete} className="bg-red-600 hover:bg-red-700 text-white">
+            <AlertDialogAction
+              onClick={handleConfirmDelete}
+              className="bg-red-600 hover:bg-red-700 text-white"
+            >
               Eliminar
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
     </div>
-  )
+  );
 }

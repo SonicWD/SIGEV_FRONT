@@ -75,7 +75,7 @@ useEffect(() => {
 
 const handleLogout = () => {
   localStorage.removeItem("access")
-  localStorage.removeItem("refresh")
+  localStorage.removeItem("accessToken")
   localStorage.removeItem("user")
   navigate("/iniciar-sesion")
 }
