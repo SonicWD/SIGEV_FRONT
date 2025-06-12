@@ -31,44 +31,50 @@ export default function IniciarSesion() {
     setFormData(prev => ({ ...prev, [field]: value }))
   }
 const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault()
-  console.log("🟡 Iniciando intento de login...")
+  e.preventDefault();
+  console.log("🟡 Iniciando intento de login...");
+
+  // Mostrar el payload que se enviará
+  const payload = {
+    username: formData.username,
+    password: formData.password,
+  };
+  console.log("Payload enviado:", payload);
 
   try {
-    const response = await api.post(`/users/login/`, {
-      username: formData.username,
-      password: formData.password,
-    })
+    const response = await api.post(`/users/login/`, payload, {
+      headers: { "Content-Type": "application/json" },
+    });
 
-    console.log("🟢 Respuesta recibida:", response.data)
+    console.log("🟢 Respuesta recibida:", response.data);
 
-    const token = response.data.data?.access
-    const refresh = response.data.data?.refresh
-    const user = response.data.data?.usuario
+    const token = response.data.data?.access;
+    const refresh = response.data.data?.refresh;
+    const user = response.data.data?.usuario;
 
-    console.log("🔑 Token:", token)
-    console.log("🔄 Refresh:", refresh)
-    console.log("👤 Usuario:", user)
+    console.log("🔑 Token:", token);
+    console.log("🔄 Refresh:", refresh);
+    console.log("👤 Usuario:", user);
 
     if (token) {
-      localStorage.setItem("accessToken", token)
-      localStorage.setItem("refresh", refresh)
-      localStorage.setItem("user", JSON.stringify(user))
-      console.log("✅ Token y usuario guardados en localStorage")
-      
+      localStorage.setItem("accessToken", token);
+      localStorage.setItem("refresh", refresh);
+      localStorage.setItem("user", JSON.stringify(user));
+      console.log("✅ Token y usuario guardados en localStorage");
+
       // Prueba 1: usando navigate
-      navigate("/dashboard")
-      console.log("➡️ Navegando a /dashboard con navigate()")
-      
+      navigate("/dashboard");
+      console.log("➡️ Navegando a /dashboard con navigate()");
+
       // Si no redirige, prueba esto en su lugar:
       // window.location.href = "/dashboard"
     } else {
-      console.warn("⚠️ No se recibió token del backend")
-      alert("No se recibió token")
+      console.warn("⚠️ No se recibió token del backend");
+      alert("No se recibió token");
     }
   } catch (error) {
-    console.error("❌ Error al iniciar sesión:", error)
-    alert("Credenciales incorrectas")
+    console.error("❌ Error al iniciar sesión:", error);
+    alert("Credenciales incorrectas");
   }
 }
 
